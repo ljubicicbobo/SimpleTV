@@ -11,7 +11,7 @@ I search for VLC in C:\\Program Files\\VideoLAN\\VLC\\vlc.exe,
 but you can change this, line 94 in Turtel.py
 
 
-Installatio
+Installation
 ===============
 Manually using CLI
 
