@@ -17,4 +17,4 @@ Manually using CLI
 
  $ git clone https://github.com/ljubicicbobo/SimpleTV.git
  
- $ cd google-images-download && sudo python setup.py install
+ $ cd SimpleTV && sudo python setup.py install
