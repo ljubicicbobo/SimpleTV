@@ -1,0 +1,118 @@
+#:kivy 1.10.0
+#: import pass getpass
+#: import PathToImages Turtle2.PathToImages
+
+<CustButton@Button>:
+    font_size: 32
+    color: 0, 0, 0, 1
+    size: 48, 48
+    pos: root.x, root.y
+    background_normal: PathToImages + 'if_YouTube_191274.png'
+    background_down: PathToImages + 'if_YouTube_191274.png'
+
+<Cust2Button@Button>:
+    font_size: 32
+    color: 0, 0, 0, 1
+    size: 48, 48
+    background_normal: PathToImages + 'if_repeat_173083.png'
+    background_down: PathToImages + 'if_repeat_173083_dn.png'
+    pos: 55, root.y
+
+<Cust3Button@Button>:
+    font_size: 32
+    color: 0, 0, 0, 1
+    size: 48, 48
+    pos: 110, root.y
+    background_normal: PathToImages + 'if_image_272704.png'
+    background_down: PathToImages + 'if_image_272704.png'
+
+<CustomPopupMenu>:
+    size_hint: .70, .70
+    auto_dismiss: False
+    pos: 180, 200
+    title: 'Exit'
+    Button:
+        background_normal: PathToImages + 'Bobislav.jpg'
+        background_down: PathToImages + 'Bobislav.jpg'
+        on_press: root.dismiss()
+        CustButton:
+            on_press: root.WhenPressed(self, '1')
+        Cust2Button:
+            on_press: root.WhenPressed(self, '0')
+        Cust3Button:
+            on_press: root.AddingPitcure(self)
+        Button:
+            font_size: 32
+            color: 0, 0, 0, 1
+            size: 48, 48
+            pos: 170, 0
+            background_normal: PathToImages + 'if_minus_1645995.png'
+            background_down: PathToImages + 'if_minus_1645995.png'
+            on_press: root.Remove(self)
+
+            
+<CustomPopupPitcure>:
+    size_hint: .3, .2
+    auto_dismiss: False
+    title: 'Okay everything done, reset the program'
+    auto_dismiss: True
+
+<CustomPopup>:
+    size_hint: .5, .5
+    auto_dismiss: False
+    title: 'Notification'
+    Button:
+        text: 'We can not find any more episodes'
+        on_press: root.dismiss()
+
+<CustomPopupMore>:
+
+    name_of_the_show: first_name
+    size_hint: .3, .2
+    auto_dismiss: False
+    title: 'Type the name of new show(and wait a few seconds)'
+    BoxLayout:
+
+        TextInput:
+            id: first_name
+            multiline: False
+        Button:
+            text: 'Submit'
+            on_press: root.ReadingNew(self)
+            on_press: root.dismiss()
+
+<CustomPopupNoShow>:
+    size_hint: .5, .5
+    auto_dismiss: False
+    title: 'Notification'
+    Button:
+        text: 'We can not find the show'
+        on_press: root.dismiss()
+
+<CustomPopupSucess>:
+    size_hint: .3, .3
+    auto_dismiss: False
+    title: 'Notification'
+    Button:
+        text: 'Everything went successfully,reset the program to update'
+        on_press: root.dismiss()
+
+<CustomPopupRemove>:
+    size_hint: .3, .3
+    auto_dismiss: False
+    title: 'Notification'
+    Button:
+        text: 'Everything went successfully,reset the program to update'
+        on_press: root.dismiss()
+
+<LogicPart>:
+    Button:
+        background_normal: 'C:\Files\Python\MyProjects\ProjectSkeleton\Images\MyPost.jpg'
+        background_down: 'C:\Files\Python\MyProjects\ProjectSkeleton\Images\MyPost.jpg'
+        on_press: root.AddingShow(self)
+
+    Button:
+        background_normal: r'c:\Files\Python\MyProjects\ProjectSkeleton\UserData\Silicon.Valley\1.png'
+        background_down: r'c:\Files\Python\MyProjects\ProjectSkeleton\UserData\Silicon.Valley\1.png'
+        on_press: root.OpeningMenu(self, 'Silicon.Valley')
+    
