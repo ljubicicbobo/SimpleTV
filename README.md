@@ -20,5 +20,5 @@ Manually using CLI
  $ cd SimpleTV && sudo python setup.py install
  
 Manually using UI
-=================
+
 Go to the repo on github ==> Click on 'Clone or Download' ==> Click on 'Download ZIP' and save it on your local disk.
