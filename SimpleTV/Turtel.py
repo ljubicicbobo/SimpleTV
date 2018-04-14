@@ -94,15 +94,15 @@ def looking_local_start(directory, NameOfTheShow, bit):
             subprocess.Popen(['C:\\Program Files\\VideoLAN\\VLC\\vlc.exe', FullName])
             print('Playing')
         except UnboundLocalError:
-            # Ovo prebaci u updating season
-            sonnetFile = open(FolderPath + '\\' + NameOfTheShow + '\\' + ReadingTxt)
-            altered_carbon = sonnetFile.readlines()[0]
-            Fixing = int(altered_carbon) - 1
-            sonnetFile.close()
+            if bit == '1':
+                sonnetFile = open(FolderPath + '\\' + NameOfTheShow + '\\' + ReadingTxt)
+                altered_carbon = sonnetFile.readlines()[0]
+                Fixing = int(altered_carbon) - 1
+                sonnetFile.close()
     
-            sonnetFileWrite = open(FolderPath + '\\' + NameOfTheShow + '\\' + ReadingTxt, 'w')
-            sonnetFileWrite.write(str(Fixing) + '\n' + Season)
-            sonnetFileWrite.close()
+                sonnetFileWrite = open(FolderPath + '\\' + NameOfTheShow + '\\' + ReadingTxt, 'w')
+                sonnetFileWrite.write(str(Fixing) + '\n' + Season)
+                sonnetFileWrite.close()
             Username = getpass.getuser()
             UpdatingSeason('C:\\Users\\' + Username + '\\Downloads\\', NameOfTheShow)
 
