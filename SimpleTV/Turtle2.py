@@ -86,7 +86,5 @@ class TurtelKVApp(App):
         return LogicPart()
 
 
-if __name__ == '__main__':
-
-    helloKivy = TurtelKVApp()
-    helloKivy.run()
+helloKivy = TurtelKVApp()
+helloKivy.run()
