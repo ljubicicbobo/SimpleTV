@@ -42,15 +42,57 @@
         Cust3Button:
             on_press: root.AddingPitcure(self)
         Button:
-            font_size: 32
-            color: 0, 0, 0, 1
             size: 48, 48
             pos: 170, 0
             background_normal: PathToImages + 'if_minus_1645995.png'
             background_down: PathToImages + 'if_minus_1645995.png'
             on_press: root.Remove(self)
+        Button:
+            pos: 230, 0
+            size: 48, 48
+            background_normal: PathToImages + 'if_icon-email-material-design_3116889.png'
+            background_down: PathToImages + 'if_icon-email-material-design_3116889.png'
+        Button:
+            pos: 290, 0
+            size: 48, 48
+            background_normal: PathToImages + 'settings.png'
+            background_down: PathToImages + 'settings.png'
+            on_press: root.change(self)
+        
+<CustomPopupChange>:
 
-            
+    season: season_num
+    size_hint: .3, .2
+    auto_dismiss: False
+    title: 'Type the season to change: (type exit to exit)'
+    BoxLayout:
+        
+        TextInput:
+            id: season_num
+            multiline: False
+        Button:
+            text: 'Submit'
+            on_press: root.ChangingSeason(self)
+            on_press: root.dismiss()
+            on_press: root.ChangingEpisode()
+
+<CustomPopupChangeEpisode>:
+
+    episode: episode_num
+    size_hint: .3, .2
+    auto_dismiss: False
+    title: 'Type the episode to change: (type exit to exit)'
+    BoxLayout:
+        
+        TextInput:
+            id: episode_num
+            multiline: False
+        Button:
+            text: 'Submit'
+            on_press: root.ChangingEpisode(self)
+            on_press: root.dismiss()
+
+
 <CustomPopupPitcure>:
     size_hint: .3, .2
     auto_dismiss: False

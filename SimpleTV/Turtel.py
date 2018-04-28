@@ -245,4 +245,25 @@ def removing(NoTS):
     sonnetWrite.close()
     shutil.rmtree(FolderPath + NoTS)
 
+def changingEpisode(Name, season, bit):
+    PathTo = os.path.join(FolderPath, Name, Name + '.txt')
+
+    if bit == 0:
+        # I need FirstSeason so that i dont overwrite episode with the first value that came
+        global FirstSeason
+        FirstSeason = season
+        WritingTxT = open(PathTo, 'w')
+        WritingTxT.write(season)
+        WritingTxT.close()
+
+    elif bit == 1:
+        # Because the counting starts from 0
+        if season == '1':
+            WritingTxT = open(PathTo, 'w')
+            WritingTxT.write(FirstSeason + '\n' + '0')
+            WritingTxT.close()
+        else:
+            WritingTxT = open(PathTo, 'w')
+            WritingTxT.write(FirstSeason + '\n' + season)
+            WritingTxT.close()
 

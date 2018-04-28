@@ -13,7 +13,7 @@ from Turtel import CheckingForShows as aa # If there is a error Ignore
 
 PathToImages = os.path.dirname(os.path.abspath(__file__)) + '\\Images\\'
 
-# TODO > Odakel ce da cita serije, jer /Download/Serije ne postoji kod drugih korisnika
+# TODO > Dodavanje Email Funkcije
 
 class LogicPart(PageLayout):
 
@@ -56,6 +56,36 @@ class CustomPopupMenu(Popup):
         removing(Name)
         the_popup = CustomPopupRemove()
         the_popup.open()
+
+    def change(self, *args):
+        the_popup = CustomPopupChange()
+        the_popup.open()
+
+class CustomPopupChange(Popup):
+    
+    season = ObjectProperty()
+
+    def ChangingSeason(self, *args):
+        season_num = self.season.text
+        if season_num == 'exit':
+            pass
+        else:       
+            changingEpisode(Name, season_num, 0)
+
+    def ChangingEpisode(self, *args):
+        the_popup = CustomPopupChangeEpisode()
+        the_popup.open()
+
+class CustomPopupChangeEpisode(Popup):
+        
+    episode = ObjectProperty()
+
+    def ChangingEpisode(self, *args):
+        episode_num = self.episode.text
+        if episode_num == 'exit':
+            pass
+        else:
+            changingEpisode(Name, episode_num, 1)
 
 
 class CustomPopupRemove(Popup):
