@@ -267,3 +267,8 @@ def changingEpisode(Name, season, bit):
             WritingTxT.write(FirstSeason + '\n' + season)
             WritingTxT.close()
 
+def MeineEmail(password, email):
+    pass
+    # TODO > Zapisu email i sifru u neki file
+    # TODO > Napravi da email2 pogleda pirate bay za nove epizode, ako ih ima emailira email1 koja je episoda
+    # i ako ovaj uzvrati porukom skine epizode u odgovarajuci direktorijum

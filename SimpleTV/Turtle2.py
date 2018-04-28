@@ -61,6 +61,29 @@ class CustomPopupMenu(Popup):
         the_popup = CustomPopupChange()
         the_popup.open()
 
+    def email(self, *args):
+        the_popup = CustomPopupEmail()
+        the_popup.open()
+
+class CustomPopupEmail(Popup):
+
+    password = ObjectProperty()
+    email = ObjectProperty()
+    
+    def MyEmail(self, *args):
+        password = self.password.text
+        email = self.email.text
+        MeineEmail(password, email)
+
+    def SendMail(self, *args):
+        the_popup = CustomPopupEmail2()
+        the_popup.open()
+
+class CustomPopupEmail2(Popup):
+
+    def MyEmail(self, *args):
+        pass
+
 class CustomPopupChange(Popup):
     
     season = ObjectProperty()

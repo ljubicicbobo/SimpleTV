@@ -52,6 +52,7 @@
             size: 48, 48
             background_normal: PathToImages + 'if_icon-email-material-design_3116889.png'
             background_down: PathToImages + 'if_icon-email-material-design_3116889.png'
+            on_press: root.email(self)
         Button:
             pos: 290, 0
             size: 48, 48
@@ -59,6 +60,53 @@
             background_down: PathToImages + 'settings.png'
             on_press: root.change(self)
         
+
+<CustomPopupEmail>:
+
+    password: sifra
+    email: gmail
+
+    size_hint: .3, .2
+    auto_dismiss: False
+    title: 'Your Email'
+    BoxLayout:
+        
+        TextInput:
+            id: sifra
+            text: 'password'
+            multiline: False
+
+        TextInput:
+            id: gmail
+            text: 'email'
+            multiline: False
+        
+        Button:
+            text: 'Submit'
+            on_press: root.MyEmail()
+            on_press: root.dismiss()
+            on_press: root.SendMail()
+
+<CustomPopupEmail2>:
+    size_hint: .3, .2
+    auto_dismiss: False
+    title: 'Email from which to send'
+    BoxLayout:
+        
+        TextInput:
+            text: 'password'
+            multiline: False
+
+        TextInput:
+            text: 'email'
+            multiline: False
+        
+        Button:
+            text: 'Submit'
+            on_press: root.MyEmail()
+            on_press: root.dismiss()
+
+
 <CustomPopupChange>:
 
     season: season_num
