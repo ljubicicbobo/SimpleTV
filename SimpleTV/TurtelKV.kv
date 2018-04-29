@@ -63,18 +63,12 @@
 
 <CustomPopupEmail>:
 
-    password: sifra
     email: gmail
 
     size_hint: .3, .2
     auto_dismiss: False
     title: 'Your Email'
     BoxLayout:
-        
-        TextInput:
-            id: sifra
-            text: 'password'
-            multiline: False
 
         TextInput:
             id: gmail
@@ -88,16 +82,22 @@
             on_press: root.SendMail()
 
 <CustomPopupEmail2>:
+
+    emailTwo: gmail
+    password: password
+
     size_hint: .3, .2
     auto_dismiss: False
     title: 'Email from which to send'
     BoxLayout:
         
         TextInput:
+            id: password
             text: 'password'
             multiline: False
 
         TextInput:
+            id: gmail
             text: 'email'
             multiline: False
         

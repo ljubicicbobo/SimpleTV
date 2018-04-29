@@ -67,13 +67,11 @@ class CustomPopupMenu(Popup):
 
 class CustomPopupEmail(Popup):
 
-    password = ObjectProperty()
     email = ObjectProperty()
     
     def MyEmail(self, *args):
-        password = self.password.text
         email = self.email.text
-        MeineEmail(password, email)
+        MeineEmail(email)
 
     def SendMail(self, *args):
         the_popup = CustomPopupEmail2()
@@ -81,8 +79,13 @@ class CustomPopupEmail(Popup):
 
 class CustomPopupEmail2(Popup):
 
+    emailTwo = ObjectProperty()
+    password = ObjectProperty()
+
     def MyEmail(self, *args):
-        pass
+        email = self.emailTwo.text
+        password = self.password.text
+        DeineEmail(password, email)
 
 class CustomPopupChange(Popup):
     
