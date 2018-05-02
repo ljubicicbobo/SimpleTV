@@ -3,6 +3,7 @@
 
 import os, re, subprocess, sys, json, glob, random, shutil
 import requests, time, urllib, getpass, fnmatch, bs4
+from collections import defaultdict
 
 # I expect that you have VLC and that it is installed in C:\\Program Files\\VideoLAN\\VLC\\vlc.exe' line 94
 
@@ -276,7 +277,7 @@ def DeineEmail(password, email):
 def PirateSearch():
 
     fileNames = []
-    filePaths = []
+    fileDict = defaultdict(list)
 
 
     for file in os.listdir(FolderPath):
@@ -284,17 +285,31 @@ def PirateSearch():
             pass
         else:
             Path = os.path.join(FolderPath, file, file + '.txt')
-            filePaths.append(Path)
             robot = re.compile('\.')
             SubRobot = robot.sub('%20', file)
             fileNames.append(SubRobot)
 
-    print(filePaths)
-    print(fileNames)
+            Opening = open(Path)
+            Reading = Opening.readlines()
+            Season = Reading[0].strip()
+            Episode= int(Reading[1].strip()) + 1
 
-    SiteName = requests.get("https://pirateproxy.sh/")
+            fileDict[SubRobot].append('s0' + Season + 'e0' + str(Episode))
+            Opening.close()
+
+    SiteName = requests.get("https://pirateproxy.sh/search/" + fileNames[0] + '%20' + fileDict[fileNames[0]][0])
     soup = bs4.BeautifulSoup(SiteName.text, 'lxml')
-    print(type(soup))
+
+    for i in range(0, 5):
+        elems = soup.select('a[class="detLink"]')[i]
+        print(elems.get('title'))
+
+
+#<a href="/torrent/20749937/Silicon.Valley
+# .S05E01.720p.WEB.h264-TBS" class="detLink" 
+# title="Details for Silicon.Valley.S05E01.72
+# 0p.WEB.h264-TBS">Silicon.Valley.S05E01.720p.WE
+# B.h264-TBS</a>
 
 
 PirateSearch()
