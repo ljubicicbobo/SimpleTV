@@ -2,7 +2,7 @@
 # This is simple program that plays the last episode you watched
 
 import os, re, subprocess, sys, json, glob, random, shutil
-import requests, time, urllib, getpass
+import requests, time, urllib, getpass, fnmatch, bs4
 
 # I expect that you have VLC and that it is installed in C:\\Program Files\\VideoLAN\\VLC\\vlc.exe' line 94
 
@@ -106,7 +106,6 @@ def looking_local_start(directory, NameOfTheShow, bit):
             Username = getpass.getuser()
             UpdatingSeason('C:\\Users\\' + Username + '\\Downloads\\', NameOfTheShow)
 
-
 def UpdatingSeason(directory, NameOfTheShow):
 
     sonnetFile = open(FolderPath + NameOfTheShow + '\\' + ReadingTxt)
@@ -143,7 +142,6 @@ def UpdatingSeason(directory, NameOfTheShow):
         subprocess.Popen(['C:\\Program Files\\VideoLAN\\VLC\\vlc.exe', FullName])
     except:
         zombie.append('1')
-
 
 def CheckingForShows(directory, krampus):
     
@@ -214,7 +212,6 @@ def another_one(Name):
     else:
         urllib.request.urlretrieve(w[randomInteger]['url_image'], PathSeries + '\\' + '1' + ".png")
 
-
 def removing(NoTS):
     num = 0
     LineNum = []
@@ -275,3 +272,29 @@ def MeineEmail(email):
 def DeineEmail(password, email):
     DeineEmail = open(FolderPath + 'email2.txt', 'w')
     DeineEmail.write(password + '\n' + email)
+
+def PirateSearch():
+
+    fileNames = []
+    filePaths = []
+
+
+    for file in os.listdir(FolderPath):
+        if fnmatch.fnmatch(file, '*.txt'):
+            pass
+        else:
+            Path = os.path.join(FolderPath, file, file + '.txt')
+            filePaths.append(Path)
+            robot = re.compile('\.')
+            SubRobot = robot.sub('%20', file)
+            fileNames.append(SubRobot)
+
+    print(filePaths)
+    print(fileNames)
+
+    SiteName = requests.get("https://pirateproxy.sh/")
+    soup = bs4.BeautifulSoup(SiteName.text, 'lxml')
+    print(type(soup))
+
+
+PirateSearch()
