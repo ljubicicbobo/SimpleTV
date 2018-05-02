@@ -298,18 +298,15 @@ def PirateSearch():
             Opening.close()
 
     SiteName = requests.get("https://pirateproxy.sh/search/" + fileNames[0] + '%20' + fileDict[fileNames[0]][0])
-    soup = bs4.BeautifulSoup(SiteName.text, 'lxml')
+    name = bs4.BeautifulSoup(SiteName.text, 'lxml')
+    magnet = bs4.BeautifulSoup(SiteName.text, 'lxml')
 
     for i in range(0, 5):
-        elems = soup.select('a[class="detLink"]')[i]
+        elems = name.select('a[class="detLink"]')[i]
         print(elems.get('title'))
 
-
-#<a href="/torrent/20749937/Silicon.Valley
-# .S05E01.720p.WEB.h264-TBS" class="detLink" 
-# title="Details for Silicon.Valley.S05E01.72
-# 0p.WEB.h264-TBS">Silicon.Valley.S05E01.720p.WE
-# B.h264-TBS</a>
+    elems = magnet.select('a[title="Download this torrent using magnet"]')[0]
+    print(elems.get('href'))
 
 
 PirateSearch()
