@@ -14,6 +14,9 @@ PitcurePath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Images\\
 KivyPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'TurtelKV.kv')
 
 def looking_local_start(directory, NameOfTheShow, bit):
+
+    # TODO > Problem je sto vidi direktorijum 4 sezona i ude u njega
+
     try:
         zombie.remove('1')
     except ValueError:
@@ -349,3 +352,9 @@ def PirateSearch(bit):
         qb.login('admin', 'admin')
         dl_path = "C:\\" + Username + "\\Downloads\\"
         qb.download_from_link(i, savepath=dl_path)
+
+def UsbTransfer(directory, drive, NameOfTheShow, bit):
+    print('Dir > ' + directory)
+    print('drive > ' + drive)
+    print('Name > ' + NameOfTheShow)
+    print('Bit > ' + str(bit))

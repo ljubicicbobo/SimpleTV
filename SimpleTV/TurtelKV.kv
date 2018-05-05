@@ -59,12 +59,38 @@
             background_normal: PathToImages + 'settings.png'
             background_down: PathToImages + 'settings.png'
             on_press: root.change(self)
-        Switch:
-            id: switch_id
-            text: 'On/Off'
-            pos: 1250, -30
-            on_active: root.switchOn(self, self.active)
+        Button:
+            size: 48, 48
+            pos: 345, 0
+            background_normal: PathToImages + 'if_download_173000.png'
+            background_down: PathToImages + 'if_download_173000.png'
+            on_press: root.switchOn(self)
         
+        Button:
+            size: 48, 48
+            pos: 400, 0
+            background_normal: PathToImages + 'if_usb-cable_1805069.png'
+            background_down: PathToImages + 'if_usb-cable_1805069.png'   
+            on_press: root.transfer(self)
+
+<CustomPopupTransfer>:
+
+    drivesName: name
+
+    size_hint: .3, .2
+    auto_dismiss: True
+    title: 'Enter the drives name: (e.g F:)'
+    BoxLayout:
+        
+        TextInput:
+            id: name
+            multiline: False
+        Button:
+            text: 'Submit'
+            on_press: root.send(self)
+            on_press: root.dismiss()
+
+            
 
 <CustomPopupEmail>:
 
@@ -116,8 +142,8 @@
 
     season: season_num
     size_hint: .3, .2
-    auto_dismiss: False
-    title: 'Type the season to change: (type exit to exit)'
+    auto_dismiss: True
+    title: 'Type the season to change:'
     BoxLayout:
         
         TextInput:
@@ -133,8 +159,8 @@
 
     episode: episode_num
     size_hint: .3, .2
-    auto_dismiss: False
-    title: 'Type the episode to change: (type exit to exit)'
+    auto_dismiss: True
+    title: 'Type the episode to change:'
     BoxLayout:
         
         TextInput:
@@ -164,7 +190,7 @@
 
     name_of_the_show: first_name
     size_hint: .3, .2
-    auto_dismiss: False
+    auto_dismiss: True
     title: 'Type the name of new show(and wait a few seconds)'
     BoxLayout:
 

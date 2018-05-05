@@ -66,13 +66,23 @@ class CustomPopupMenu(Popup):
         the_popup = CustomPopupEmail()
         the_popup.open()
 
-    def switchOn(self, instance, value):
-        if value is True:
-            threadObj = threading.Thread(target=PirateSearch, args=['0'])
-            threadObj.start()
-        else:
-            pass
+    def switchOn(self, *args):
+        threadObj = threading.Thread(target=PirateSearch, args=['0'])
+        threadObj.start()
+
+    def transfer(self, *args):
+        the_popup = CustomPopupTransfer()
+        the_popup.open()
         
+class CustomPopupTransfer(Popup):
+
+    drivesName = ObjectProperty()
+
+    def send(self, *args):
+        Username = getpass.getuser()
+        drive = self.drivesName.text
+        UsbTransfer('C:\\Users\\' + Username + '\\Downloads\\', drive, Name, 1)
+
 
 class CustomPopupEmail(Popup):
 
