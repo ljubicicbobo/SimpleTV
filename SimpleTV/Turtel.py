@@ -2,7 +2,7 @@
 # This is simple program that plays the last episode you watched
 
 import os, re, subprocess, sys, json, glob, random, shutil
-import requests, time, urllib, getpass, fnmatch, bs4, getpass
+import requests, time, urllib, getpass, fnmatch, bs4, getpass, smtplib
 from collections import defaultdict
 from qbittorrent import Client # Ovo trebas dodati u setup
 
@@ -275,8 +275,9 @@ def DeineEmail(password, email):
     DeineEmail = open(FolderPath + 'email2.txt', 'w')
     DeineEmail.write(password + '\n' + email)
 
-def PirateSearch():
+def PirateSearch(bit):
     # TODO > namjesti za seedere
+    
     fileNames = []
     fileDict = defaultdict(list)
 
@@ -330,7 +331,8 @@ def PirateSearch():
                 pass
 
             number += 1
-        
+
+   
     Username = getpass.getuser()
     for i in urlList:
         time.sleep(1)
@@ -338,3 +340,27 @@ def PirateSearch():
         qb.login('admin', 'admin')
         dl_path = "C:\\" + Username + "\\Downloads\\"
         qb.download_from_link(i, savepath=dl_path)
+
+
+    Email = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'UserData\\' + 'email2.txt')
+    Opening = open(Email)
+    Reading = Opening.readlines()
+    Pass = Reading[0].strip()
+    Gmail = Reading[1].strip()
+    Opening.close()
+
+    Email2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'UserData\\' + 'email.txt')
+    Opening2 = open(Email2)
+    Reading2 = Opening2.readlines()
+    Gmail2 = Reading2[0].strip()
+    Opening2.close()
+
+    smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+    print(smtpObj.ehlo())
+    print(smtpObj.starttls())
+    print(smtpObj.login(Gmail, Pass))
+    print(smtpObj.sendmail(Gmail, Gmail2, 'Subject: TVLove\
+    \n Everything is okay. You can send:exit(exit program), shutdown(shutdown pc), bye(to stop reciving email)'))
+    print(smtpObj.quit())
+
+PirateSearch()

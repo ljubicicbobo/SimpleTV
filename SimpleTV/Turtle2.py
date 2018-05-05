@@ -75,7 +75,7 @@ class CustomPopupMenu(Popup):
                 the_popup = CustomPopupEmail()
                 the_popup.open()
         else:
-            PirateSearch()
+            pass
         
 
 class CustomPopupEmail(Popup):
