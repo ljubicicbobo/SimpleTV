@@ -295,9 +295,21 @@ def PirateSearch(bit):
             Season = Reading[0].strip()
             Episode= int(Reading[1].strip()) + 1
 
-            fileDict[SubRobot].append('s0' + Season + 'e0' + str(Episode))
+            if 10 <= int(Season):
+                if 10 <= int(Episode) :
+                    fileDict[SubRobot].append('s' + Season + 'e' + str(Episode))
+                else:
+                    fileDict[SubRobot].append('s' + Season + 'e0' + str(Episode))
+
+            else:
+                if 10 <= int(Episode) :
+                    fileDict[SubRobot].append('s0' + Season + 'e' + str(Episode))
+                else:
+                    fileDict[SubRobot].append('s0' + Season + 'e0' + str(Episode))
+
             Opening.close()
 
+    print(fileDict)
     zeit = 0
     urlList = []
     for a in fileNames:
