@@ -9,7 +9,6 @@ from qbittorrent import Client # Ovo trebas dodati u setup
 # I expect that you have VLC and that it is installed in C:\\Program Files\\VideoLAN\\VLC\\vlc.exe' line 94
 
 zombie = []
-threadControl = [1]
 FolderPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'UserData\\')
 PitcurePath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Images\\')
 KivyPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'TurtelKV.kv')
@@ -279,68 +278,62 @@ def DeineEmail(password, email):
 def PirateSearch(bit):
     # TODO > namjesti za seedere
 
-    while threadControl[0] == 1:
-    
-        fileNames = []
-        fileDict = defaultdict(list)
+    fileNames = []
+    fileDict = defaultdict(list)
 
+    for file in os.listdir(FolderPath):
+        if fnmatch.fnmatch(file, '*.txt'):
+            pass
+        else:
+            Path = os.path.join(FolderPath, file, file + '.txt')
+            robot = re.compile('\.')
+            SubRobot = robot.sub('%20', file)
+            fileNames.append(SubRobot)
 
-        for file in os.listdir(FolderPath):
-            if fnmatch.fnmatch(file, '*.txt'):
+            Opening = open(Path)
+            Reading = Opening.readlines()
+            Season = Reading[0].strip()
+            Episode= int(Reading[1].strip()) + 1
+
+            fileDict[SubRobot].append('s0' + Season + 'e0' + str(Episode))
+            Opening.close()
+
+    zeit = 0
+    urlList = []
+    for a in fileNames:
+        SiteName = requests.get("https://pirateproxy.sh/search/" + fileNames[zeit] + '%20' + fileDict[fileNames[zeit]][0])
+        name = bs4.BeautifulSoup(SiteName.text, 'lxml')
+        magnet = bs4.BeautifulSoup(SiteName.text, 'lxml')
+        zeit += 1
+
+        elementsList = []
+        for i in range(0, 5):
+            try:
+                elems = name.select('a[class="detLink"]')[i]
+                elementsList.append(elems.get('title'))
+            except IndexError:
                 pass
-            else:
-                Path = os.path.join(FolderPath, file, file + '.txt')
-                robot = re.compile('\.')
-                SubRobot = robot.sub('%20', file)
-                fileNames.append(SubRobot)
 
-                Opening = open(Path)
-                Reading = Opening.readlines()
-                Season = Reading[0].strip()
-                Episode= int(Reading[1].strip()) + 1
+        number = 0
+        achnung = 0
+        for i in elementsList:
+            regex = re.compile('720p')
+            Search = regex.search(i)
+            try:
+                Search.group()     
+                if achnung == 0:
+                    elems = magnet.select('a[title="Download this torrent using magnet"]')[number]
+                    urlList.append(elems.get('href'))
+                    achnung += 1
+            except:
+                pass
 
-                fileDict[SubRobot].append('s0' + Season + 'e0' + str(Episode))
-                Opening.close()
+            number += 1
 
-        zeit = 0
-        urlList = []
-        for a in fileNames:
-            print(fileNames[zeit])
-            SiteName = requests.get("https://pirateproxy.sh/search/" + fileNames[zeit] + '%20' + fileDict[fileNames[zeit]][0])
-            name = bs4.BeautifulSoup(SiteName.text, 'lxml')
-            magnet = bs4.BeautifulSoup(SiteName.text, 'lxml')
-            zeit += 1
-
-            elementsList = []
-            for i in range(0, 5):
-                try:
-                    elems = name.select('a[class="detLink"]')[i]
-                    elementsList.append(elems.get('title'))
-                except IndexError:
-                    pass
-
-            number = 0
-            achnung = 0
-            for i in elementsList:
-                regex = re.compile('720p')
-                Search = regex.search(i)
-                try:
-                    Search.group()     
-                    if achnung == 0:
-                        elems = magnet.select('a[title="Download this torrent using magnet"]')[number]
-                        urlList.append(elems.get('href'))
-                        achnung += 1
-                except:
-                    pass
-
-                number += 1
-
-        Username = getpass.getuser()
-        for i in urlList:
-            time.sleep(2)
-            qb = Client('http://127.0.0.1:8080/')
-            qb.login('admin', 'admin')
-            dl_path = "C:\\" + Username + "\\Downloads\\"
-            qb.download_from_link(i, savepath=dl_path)
-
-
+    Username = getpass.getuser()
+    for i in urlList:
+        time.sleep(2)
+        qb = Client('http://127.0.0.1:8080/')
+        qb.login('admin', 'admin')
+        dl_path = "C:\\" + Username + "\\Downloads\\"
+        qb.download_from_link(i, savepath=dl_path)

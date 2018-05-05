@@ -68,15 +68,10 @@ class CustomPopupMenu(Popup):
 
     def switchOn(self, instance, value):
         if value is True:
-            if exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'UserData', 'email.txt')):
-                threadObj = threading.Thread(target=PirateSearch, args=['0'])
-                threadObj.start()
-            else:
-                the_popup = CustomPopupEmail()
-                the_popup.open()
+            threadObj = threading.Thread(target=PirateSearch, args=['0'])
+            threadObj.start()
         else:
-            threadControl.remove(1)
-            threadControl.append(2)
+            pass
         
 
 class CustomPopupEmail(Popup):
