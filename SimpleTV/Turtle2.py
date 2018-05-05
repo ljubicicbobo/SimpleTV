@@ -14,7 +14,7 @@ from Turtel import CheckingForShows as aa # If there is a error Ignore
 
 PathToImages = os.path.dirname(os.path.abspath(__file__)) + '\\Images\\'
 
-# TODO > Dodavanje Email Funkcije
+# TODO > Sta uraditi sa Email 
 
 class LogicPart(PageLayout):
 
@@ -69,13 +69,14 @@ class CustomPopupMenu(Popup):
     def switchOn(self, instance, value):
         if value is True:
             if exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'UserData', 'email.txt')):
-                threadObj = threading.Thread(target=PirateSearch)
+                threadObj = threading.Thread(target=PirateSearch, args=['0'])
                 threadObj.start()
             else:
                 the_popup = CustomPopupEmail()
                 the_popup.open()
         else:
-            pass
+            threadControl.remove(1)
+            threadControl.append(2)
         
 
 class CustomPopupEmail(Popup):
