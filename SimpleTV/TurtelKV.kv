@@ -60,9 +60,10 @@
             background_down: PathToImages + 'settings.png'
             on_press: root.change(self)
         Switch:
+            id: switch_id
             text: 'On/Off'
             pos: 1250, -30
-            on_active: root.switchOn(self)
+            on_active: root.switchOn(self, self.active)
         
 
 <CustomPopupEmail>:
@@ -70,7 +71,7 @@
     email: gmail
 
     size_hint: .3, .2
-    auto_dismiss: False
+    auto_dismiss: True
     title: 'Your Email'
     BoxLayout:
 
@@ -91,7 +92,7 @@
     password: password
 
     size_hint: .3, .2
-    auto_dismiss: False
+    auto_dismiss: True
     title: 'Email from which to send'
     BoxLayout:
         

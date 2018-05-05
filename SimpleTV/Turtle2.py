@@ -1,6 +1,7 @@
 import kivy, sys, random
 kivy.require('1.10.0')
 
+from os.path import exists
 from kivy.app import App
 from kivy.uix.button import Label
 from kivy.uix.widget import Widget
@@ -65,9 +66,16 @@ class CustomPopupMenu(Popup):
         the_popup = CustomPopupEmail()
         the_popup.open()
 
-    def switchOn(self, *args):
-        threadObj = threading.Thread(target=PirateSearch)
-        threadObj.start()
+    def switchOn(self, instance, value):
+        if value is True:
+            if exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'UserData', 'email.txt')):
+                threadObj = threading.Thread(target=PirateSearch)
+                threadObj.start()
+            else:
+                the_popup = CustomPopupEmail()
+                the_popup.open()
+        else:
+            PirateSearch()
         
 
 class CustomPopupEmail(Popup):
