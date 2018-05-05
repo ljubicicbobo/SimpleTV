@@ -6,7 +6,7 @@ from kivy.uix.button import Label
 from kivy.uix.widget import Widget
 from kivy.uix.pagelayout import PageLayout
 from kivy.properties import ObjectProperty
-import subprocess, sys, time, getpass, os
+import subprocess, sys, time, getpass, os, threading
 from kivy.uix.popup import Popup
 from Turtel import * # If there is a error Ignore
 from Turtel import CheckingForShows as aa # If there is a error Ignore
@@ -64,6 +64,11 @@ class CustomPopupMenu(Popup):
     def email(self, *args):
         the_popup = CustomPopupEmail()
         the_popup.open()
+
+    def switchOn(self, *args):
+        threadObj = threading.Thread(target=PirateSearch)
+        threadObj.start()
+        
 
 class CustomPopupEmail(Popup):
 

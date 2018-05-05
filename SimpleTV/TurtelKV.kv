@@ -62,6 +62,7 @@
         Switch:
             text: 'On/Off'
             pos: 1250, -30
+            on_active: root.switchOn(self)
         
 
 <CustomPopupEmail>:
@@ -208,4 +209,9 @@
         background_normal: r'c:\Files\Python\MyProjects\ProjectSkeleton\UserData\Silicon.Valley\1.png'
         background_down: r'c:\Files\Python\MyProjects\ProjectSkeleton\UserData\Silicon.Valley\1.png'
         on_press: root.OpeningMenu(self, 'Silicon.Valley')
+    
+    Button:
+        background_normal: r'c:\Files\Python\GITProject\SimpleTV\UserData\Stranger.Things\1.png'
+        background_down: r'c:\Files\Python\GITProject\SimpleTV\UserData\Stranger.Things\1.png'
+        on_press: root.OpeningMenu(self, 'Stranger.Things')
     

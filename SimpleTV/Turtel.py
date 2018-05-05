@@ -2,8 +2,9 @@
 # This is simple program that plays the last episode you watched
 
 import os, re, subprocess, sys, json, glob, random, shutil
-import requests, time, urllib, getpass, fnmatch, bs4
+import requests, time, urllib, getpass, fnmatch, bs4, getpass
 from collections import defaultdict
+from qbittorrent import Client # Ovo trebas dodati u setup
 
 # I expect that you have VLC and that it is installed in C:\\Program Files\\VideoLAN\\VLC\\vlc.exe' line 94
 
@@ -275,7 +276,7 @@ def DeineEmail(password, email):
     DeineEmail.write(password + '\n' + email)
 
 def PirateSearch():
-
+    # TODO > namjesti za seedere
     fileNames = []
     fileDict = defaultdict(list)
 
@@ -297,16 +298,43 @@ def PirateSearch():
             fileDict[SubRobot].append('s0' + Season + 'e0' + str(Episode))
             Opening.close()
 
-    SiteName = requests.get("https://pirateproxy.sh/search/" + fileNames[0] + '%20' + fileDict[fileNames[0]][0])
-    name = bs4.BeautifulSoup(SiteName.text, 'lxml')
-    magnet = bs4.BeautifulSoup(SiteName.text, 'lxml')
+    zeit = 0
+    urlList = []
+    for a in fileNames:
+        print(fileNames[zeit])
+        SiteName = requests.get("https://pirateproxy.sh/search/" + fileNames[zeit] + '%20' + fileDict[fileNames[zeit]][0])
+        name = bs4.BeautifulSoup(SiteName.text, 'lxml')
+        magnet = bs4.BeautifulSoup(SiteName.text, 'lxml')
+        zeit += 1
 
-    for i in range(0, 5):
-        elems = name.select('a[class="detLink"]')[i]
-        print(elems.get('title'))
+        elementsList = []
+        for i in range(0, 5):
+            try:
+                elems = name.select('a[class="detLink"]')[i]
+                elementsList.append(elems.get('title'))
+            except IndexError:
+                pass
 
-    elems = magnet.select('a[title="Download this torrent using magnet"]')[0]
-    print(elems.get('href'))
+        number = 0
+        achnung = 0
+        for i in elementsList:
+            regex = re.compile('720p')
+            Search = regex.search(i)
+            try:
+                Search.group()     
+                if achnung == 0:
+                    elems = magnet.select('a[title="Download this torrent using magnet"]')[number]
+                    urlList.append(elems.get('href'))
+                    achnung += 1
+            except:
+                pass
 
-
-PirateSearch()
+            number += 1
+        
+    Username = getpass.getuser()
+    for i in urlList:
+        time.sleep(1)
+        qb = Client('http://127.0.0.1:8080/')
+        qb.login('admin', 'admin')
+        dl_path = "C:\\" + Username + "\\Downloads\\"
+        qb.download_from_link(i, savepath=dl_path)
