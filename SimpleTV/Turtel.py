@@ -350,7 +350,7 @@ def PirateSearch(bit):
         time.sleep(2)
         qb = Client('http://127.0.0.1:8080/')
         qb.login('admin', 'admin')
-        dl_path = "C:\\" + Username + "\\Downloads\\"
+        dl_path = "C:\\" + Username + "\\Users\\Downloads\\"
         qb.download_from_link(i, savepath=dl_path)
 
 def UsbTransfer(directory, drive, NameOfTheShow, bit):
