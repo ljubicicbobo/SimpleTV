@@ -76,12 +76,6 @@ def looking_local_start(directory, NameOfTheShow, bit):
 
     if FirstAustria == []:
         for folderName, subforlder, filenames in os.walk(directory): # Za 100 problem je sto trazi direktorij a ne file
-            try:
-                SearchFolderName = re.compile('.*' + ImeSezone + '.*', re.DOTALL | re.I)
-                mo1 = SearchFolderName.search(folderName)
-                FirstPart = ''.join(mo1.group())
-            except AttributeError:
-                pass
 
             for subforlders in subforlder:
                 ''.join(subforlders)
@@ -90,12 +84,14 @@ def looking_local_start(directory, NameOfTheShow, bit):
                 try:
                     SearchRegex = re.compile(ImeSerije + '.*' + '.(mkv|mp4)$', re.DOTALL | re.I)
                     mo = SearchRegex.search(filename)
-                    SecondPart = ''.join(mo.group())
+                    SecondPart = mo.group()
+                    FirstPart = folderName
                 except AttributeError:
                     pass
  
         try:
             FullName = FirstPart + '\\' + SecondPart
+            print(FullName)
             subprocess.Popen(['C:\\Program Files\\VideoLAN\\VLC\\vlc.exe', FullName])
             print('Playing')
         except UnboundLocalError:
