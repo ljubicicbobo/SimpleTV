@@ -7,6 +7,7 @@ from collections import defaultdict
 from qbittorrent import Client # Ovo trebas dodati u setup
 
 # I expect that you have VLC and that it is installed in C:\\Program Files\\VideoLAN\\VLC\\vlc.exe' line 94
+# TODO > Odaberi par dan i napravi class za ovo biti ce puno funkcionalni i lakse za ove koje se ponavljaju
 
 zombie = []
 FolderPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'UserData\\')
@@ -350,7 +351,95 @@ def PirateSearch(bit):
         qb.download_from_link(i, savepath=dl_path)
 
 def UsbTransfer(directory, drive, NameOfTheShow, bit):
-    print('Dir > ' + directory)
-    print('drive > ' + drive)
-    print('Name > ' + NameOfTheShow)
-    print('Bit > ' + str(bit))
+    try:
+        zombie.remove('1')
+    except ValueError:
+        pass
+        
+    global ReadingTxt
+    ReadingTxt = NameOfTheShow + '.txt'
+
+    sonnetFile = open(FolderPath + NameOfTheShow + '\\' + ReadingTxt)
+    Dict = sonnetFile.readlines()
+    Season = Dict[1]
+    Episode = Dict[0]
+    sonnetFile.close()
+    altered_carbon = int(Episode)
+    if bit == '1':
+        altered_carbon = 1 + int(Episode)
+        sonnetFileWrite = open(FolderPath + NameOfTheShow + '\\' + ReadingTxt, 'w')
+        sonnetFileWrite.write(str(altered_carbon) + '\n' + str(Season))
+        sonnetFileWrite.close()
+
+    global IndexNumber
+    IndexNumber = NameOfTheShow
+
+    global ImeSezoneUpdated
+    SeasonUpd = int(Season) + 1
+
+    if 10 == int(Episode) + 1 or 10 < int(Episode) + 1:
+        Monkey = 'E'
+    else:
+        Monkey = 'E0'
+ 
+    if 10 == int(Season) + 1 or 10 < int(Season) + 1:
+        ImeSerije = IndexNumber + '.S' + Season + Monkey + str(altered_carbon)
+        ImeSezone = IndexNumber + '.S' + Season # We need ImeSezone to search for folders
+        ImeSezoneUpdated = IndexNumber + '.S' + str(SeasonUpd)
+
+    else:
+        ImeSerije = IndexNumber + '.S0' + Season + Monkey + str(altered_carbon)
+        ImeSezone = IndexNumber + '.S0' + Season
+        ImeSezoneUpdated = IndexNumber + '.S0' + str(SeasonUpd)
+
+    print(ImeSerije)
+    FirstAustria = [] 
+    # We first search for file in directory, if we don't find it 
+    # we start searching in all subdirectories
+    # we do this by appending to FirstAustria, 1 means positiv
+    for i in os.listdir(directory):
+        try:
+            SearchRegex = re.compile(ImeSerije + '.*' + '.(mkv|mp4)$', re.DOTALL | re.I)
+            mo = SearchRegex.search(i)
+            FileName = ''.join(mo.group())
+            shutil.move(FileName, drive + '\\')
+            FirstAustria.append(1)
+
+        except AttributeError:
+            pass
+
+    if FirstAustria == []:
+        for folderName, subforlder, filenames in os.walk(directory): # Za 100 problem je sto trazi direktorij a ne file
+
+            for subforlders in subforlder:
+                ''.join(subforlders)
+
+            for filename in filenames:
+                try:
+                    SearchRegex = re.compile(ImeSerije + '.*' + '.(mkv|mp4)$', re.DOTALL | re.I)
+                    mo = SearchRegex.search(filename)
+                    SecondPart = mo.group()
+                    FirstPart = folderName
+                except AttributeError:
+                    pass
+ 
+        try:
+            FullName = FirstPart + '\\' + SecondPart
+            print(FullName)
+            shutil.move(FullName, drive + '\\')
+            print('Playing')
+        except UnboundLocalError:
+            if bit == '1':
+                sonnetFile = open(FolderPath + '\\' + NameOfTheShow + '\\' + ReadingTxt)
+                altered_carbon = sonnetFile.readlines()[0]
+                Fixing = int(altered_carbon) - 1
+                sonnetFile.close()
+
+                sonnetFileWrite = open(FolderPath + '\\' + NameOfTheShow + '\\' + ReadingTxt, 'w')
+                sonnetFileWrite.write(str(Fixing) + '\n' + Season)
+                sonnetFileWrite.close()
+
+            sonnetFile = open(FolderPath + NameOfTheShow + '\\' + ReadingTxt)
+            SeasonNumber = sonnetFile.readlines()[1]
+            SeasonNumber = int(SeasonNumber) + 1
+    

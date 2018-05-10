@@ -89,6 +89,7 @@
             text: 'Submit'
             on_press: root.send(self)
             on_press: root.dismiss()
+            on_press: root.sucess()
 
             
 
@@ -225,6 +226,15 @@
     Button:
         text: 'Everything went successfully,reset the program to update'
         on_press: root.dismiss()
+
+<CustomPopupSucessTranfer>:
+    size_hint: .3, .3
+    auto_dismiss: False
+    title: 'Notification'
+    Button:
+        text: 'Everything went successfully'
+        on_press: root.dismiss()
+
 
 <LogicPart>:
     Button:

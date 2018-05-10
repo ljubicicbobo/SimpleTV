@@ -81,8 +81,15 @@ class CustomPopupTransfer(Popup):
     def send(self, *args):
         Username = getpass.getuser()
         drive = self.drivesName.text
-        UsbTransfer('C:\\Users\\' + Username + '\\Downloads\\', drive, Name, 1)
+        threadObj = threading.Thread(target=UsbTransfer, args=['C:\\Users\\' + Username + '\\Downloads\\', drive, Name, 1])
+        threadObj.start()
 
+    def sucess(self, *args):
+        the_popup = CustomPopupPitcure()
+        the_popup.open()
+
+class CustomPopupSucessTranfer(Popup):
+    pass
 
 class CustomPopupEmail(Popup):
 
