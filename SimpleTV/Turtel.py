@@ -251,19 +251,16 @@ def changingEpisode(Name, season, bit):
         # I need FirstSeason so that i dont overwrite episode with the first value that came
         global FirstSeason
         FirstSeason = season
-        WritingTxT = open(PathTo, 'w')
-        WritingTxT.write(season)
-        WritingTxT.close()
 
     elif bit == 1:
         # Because the counting starts from 0
         if season == '1':
             WritingTxT = open(PathTo, 'w')
-            WritingTxT.write(FirstSeason + '\n' + '0')
+            WritingTxT.write('0' + '\n' + FirstSeason)
             WritingTxT.close()
         else:
             WritingTxT = open(PathTo, 'w')
-            WritingTxT.write(FirstSeason + '\n' + season)
+            WritingTxT.write(season + '\n' + FirstSeason)
             WritingTxT.close()
 
 def MeineEmail(email):
@@ -292,8 +289,8 @@ def PirateSearch(bit):
 
             Opening = open(Path)
             Reading = Opening.readlines()
-            Season = Reading[0].strip()
-            Episode= int(Reading[1].strip()) + 1
+            Season = Reading[1].strip()
+            Episode= int(Reading[0].strip()) + 1
 
             if 10 <= int(Season):
                 if 10 <= int(Episode) :
