@@ -363,6 +363,8 @@ def NewSeason(name1, season):
     else:
         EpisodeNum = 's0' + season + 'e01'
 
+    print(name1 + EpisodeNum)
+
     SiteName = requests.get("https://pirateproxy.sh/search/" + name1 + '%20' + EpisodeNum)
 
     name = bs4.BeautifulSoup(SiteName.text, 'lxml')
