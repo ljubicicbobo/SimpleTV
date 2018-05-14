@@ -277,6 +277,7 @@ def PirateSearch(bit):
 
     fileNames = []
     fileDict = defaultdict(list)
+    seasonList = []
 
     for file in os.listdir(FolderPath):
         if fnmatch.fnmatch(file, '*.txt'):
@@ -304,6 +305,7 @@ def PirateSearch(bit):
                 else:
                     fileDict[SubRobot].append('s0' + Season + 'e0' + str(Episode))
 
+            seasonList.append(Season)
             Opening.close()
 
     print(fileDict)
@@ -323,8 +325,8 @@ def PirateSearch(bit):
                 pass
 
         if elementsList == []:
-            Season = int(Season) + 1
-            NewSeason(fileNames[zeit], str(Season))
+            season1 = int(seasonList[zeit]) + 1
+            NewSeason(fileNames[zeit], str(season1))
 
         zeit += 1
         number = 0
