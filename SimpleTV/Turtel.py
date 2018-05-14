@@ -313,7 +313,6 @@ def PirateSearch(bit):
         SiteName = requests.get("https://pirateproxy.sh/search/" + fileNames[zeit] + '%20' + fileDict[fileNames[zeit]][0])
         name = bs4.BeautifulSoup(SiteName.text, 'lxml')
         magnet = bs4.BeautifulSoup(SiteName.text, 'lxml')
-        zeit += 1
 
         elementsList = []
         for i in range(0, 5):
@@ -323,6 +322,11 @@ def PirateSearch(bit):
             except IndexError:
                 pass
 
+        if elementsList == []:
+            Season = int(Season) + 1
+            NewSeason(fileNames[zeit], str(Season))
+
+        zeit += 1
         number = 0
         achnung = 0
         for i in elementsList:
@@ -346,6 +350,54 @@ def PirateSearch(bit):
         qb.login('admin', 'admin')
         dl_path = "C:\\Users\\" + Username + "\\Downloads\\"
         qb.download_from_link(i, savepath=dl_path)
+
+def NewSeason(name1, season):
+
+    urlList = []
+
+    if 10 <= int(season):
+        EpisodeNum = 's' + season + 'e01'
+
+    else:
+        EpisodeNum = 's0' + season + 'e01'
+
+    SiteName = requests.get("https://pirateproxy.sh/search/" + name1 + '%20' + EpisodeNum)
+
+    name = bs4.BeautifulSoup(SiteName.text, 'lxml')
+    magnet = bs4.BeautifulSoup(SiteName.text, 'lxml')
+
+    elementsList = []
+    for i in range(0, 5):
+        try:
+            elems = name.select('a[class="detLink"]')[i]
+            elementsList.append(elems.get('title'))
+        except IndexError:
+            pass
+
+    number = 0
+    achnung = 0
+    for i in elementsList:
+        regex = re.compile('720p')
+        Search = regex.search(i)
+        try:
+            Search.group()     
+            if achnung == 0:
+                elems = magnet.select('a[title="Download this torrent using magnet"]')[number]
+                urlList.append(elems.get('href'))
+                achnung += 1
+        except:
+            pass
+
+        number += 1
+
+    Username = getpass.getuser()
+    for i in urlList:
+        time.sleep(2)
+        qb = Client('http://127.0.0.1:8080/')
+        qb.login('admin', 'admin')
+        dl_path = "C:\\Users\\" + Username + "\\Downloads\\"
+        qb.download_from_link(i, savepath=dl_path)
+
 
 def UsbTransfer(directory, drive, NameOfTheShow, bit):
     try:
@@ -439,4 +491,4 @@ def UsbTransfer(directory, drive, NameOfTheShow, bit):
             sonnetFile = open(FolderPath + NameOfTheShow + '\\' + ReadingTxt)
             SeasonNumber = sonnetFile.readlines()[1]
             SeasonNumber = int(SeasonNumber) + 1
-    
+
