@@ -116,30 +116,39 @@ def UpdatingSeason(directory, NameOfTheShow):
     
     ImeSerije = IndexNumber + '.S0' + str(SeasonNumber) + 'E01'
     print('Updated season sucesfully')
-
-    for folderName, subforlder, filenames in os.walk(directory):
+    FirstAustria = [] 
+    # We first search for file in directory, if we don't find it 
+    # we start searching in all subdirectories
+    # we do this by appending to FirstAustria, 1 means positiv
+    for i in os.listdir(directory):
         try:
-            SearchFolderName = re.compile('.*' + ImeSezoneUpdated + '.*', re.DOTALL | re.I)
-            mo1 = SearchFolderName.search(folderName)
-            FirstPart = ''.join(mo1.group())
+            SearchRegex = re.compile(ImeSerije + '.*' + '.(mkv|mp4)$', re.DOTALL | re.I)
+            mo = SearchRegex.search(i)
+            FileName = ''.join(mo.group())
+            subprocess.Popen(['C:\\Program Files\\VideoLAN\\VLC\\vlc.exe', directory + '\\' + FileName])
+            FirstAustria.append(1)
+
         except AttributeError:
             pass
 
-        for subforlders in subforlder:
-            ''.join(subforlders)
+    if FirstAustria == []:
+        for folderName, subforlder, filenames in os.walk(directory): # Za 100 problem je sto trazi direktorij a ne file
 
-        for filename in filenames:
-            try:
-                SearchRegex = re.compile(ImeSerije + '.*' + '.(mkv|mp4)$', re.DOTALL | re.I)
-                mo = SearchRegex.search(filename)
-                SecondPart = ''.join(mo.group())
-            except AttributeError:
-                pass
+            for subforlders in subforlder:
+                ''.join(subforlders)
 
+            for filename in filenames:
+                try:
+                    SearchRegex = re.compile(ImeSerije + '.*' + '.(mkv|mp4)$', re.DOTALL | re.I)
+                    mo = SearchRegex.search(filename)
+                    SecondPart = mo.group()
+                    FirstPart = folderName
+                except AttributeError:
+                    pass
     try:
         FullName = FirstPart + '\\' + SecondPart
         sonnetFileWrite = open(FolderPath + NameOfTheShow + '\\' + ReadingTxt, 'w')
-        sonnetFileWrite.write('0' + '\n' + str(SeasonNumber))
+        sonnetFileWrite.write('1' + '\n' + str(SeasonNumber))
         sonnetFileWrite.close()
         subprocess.Popen(['C:\\Program Files\\VideoLAN\\VLC\\vlc.exe', FullName])
     except:
