@@ -459,12 +459,13 @@ def UsbTransfer(directory, drive, NameOfTheShow, bit):
     # We first search for file in directory, if we don't find it 
     # we start searching in all subdirectories
     # we do this by appending to FirstAustria, 1 means positiv
+    Username = getpass.getuser()
     for i in os.listdir(directory):
         try:
             SearchRegex = re.compile(ImeSerije + '.*' + '.(mkv|mp4)$', re.DOTALL | re.I)
             mo = SearchRegex.search(i)
             FileName = ''.join(mo.group())
-            shutil.move(FileName, drive + '\\')
+            shutil.move('C:\\Users\\' + Username + '\\Downloads\\' + FileName, drive + ':\\')
             FirstAustria.append(1)
 
         except AttributeError:
