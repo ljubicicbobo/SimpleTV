@@ -5,6 +5,129 @@
 #include <stdio.h>
 #define MESG "COMPUTER BYTES DOG"
 #define TEN 10
+#define N 3
+
+void main2() {
+    /*
+    int a[500], n, i, j, t;
+    printf("Unesi broj elemenata niza\n");
+    scanf_s("%d", &n);
+    for (i = 0; i < n; i++) {
+        printf("Unesi %d. element niza ", i + 1);
+        scanf_s("%d", &a[i]);
+    }
+    for (i = 0; i < n - 1; i++) {
+        for (j = i + 1; j < n; j++) {
+            t = a[i];
+            a[i] = a[j];
+            a[j] = t;
+        }
+    }
+    printf("Sortirani niz je \n");
+    for (i = 0; i < n; i++) {
+        printf("%d ", a[i]);
+    }
+
+    // 2
+    int i, j, t;
+    int b[N];
+    printf("Unesite %d brojeva\n", N);
+    for (i = 0; i < N; i++) {
+        printf("Unesite %d. element niza ", i + 1);
+        scanf_s("%d", &b[i]);
+    }
+    printf("Orginalni niz je: \n");
+    for (i = 0; i < N; i++) {
+        printf("%d ", b[i]);
+    }
+    for (i = 0; i < N - 1; i++) {
+        for (j = i + 1; j < N; j++) {
+            t = b[i];
+            b[i] = b[j];
+            b[j] = t;
+        }
+    }
+    printf("\nSortirani niz je: \n");
+    for (i = 0; i < N; i++) {
+        printf("%d ", b[i]);
+    }
+    
+    int i, j, t;
+    int b[4][5];
+    printf("Unesite elemente 4x5 matrice: \n");
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 5; j++) {
+            printf("Element %d:%d: ", i, j);
+            scanf_s("%d", &b[i][j]);
+        }
+    }
+    t = b[0][0];
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 5; j++) {
+            if (i == 0 && b[i][j] > t)
+                t = b[i][j];
+            else if (i != 0 && b[i][0] || b[i][3]) {
+                if (b[i][j] > t)
+                    t = b[i][j];
+            }
+            else if (i == 3 && b[i][j] > t)
+                t = b[i][j];
+        }
+    }
+    printf("Najveci element je na rubovima je %d. \n", t);
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 5; j++) {
+            printf("%d ", b[i][j]);
+        }
+        printf("\n");
+    }
+    */
+    // 4
+    int i, j, t;
+    int k, l;
+    int b[500][500] = { 5000 };
+
+    printf("Unesite velicinu matrice n:m\n");
+    scanf_s("%d", &k);
+    scanf_s("%d", &l);
+    printf("Unesite elemente matrice: ");
+    for (i = 0; i < k; i++) {
+        for (j = 0; j < l; j++) {
+            printf("Element %d:%d ", i, j);
+            scanf_s("%d", &b[i][j]);
+        }
+    }
+    for (i = 0; i < k; i++) {
+        for (j = 0; j < l; j++) {
+            printf("%d ", b[i][j]);
+        }
+        printf("\n");
+    }
+    t = 0;
+    printf("Elementi na rubovima matrice su: \n");
+    for (i = 0; i < k; i++) {
+        for (j = 0; j < l; j++) {
+            if (i == 0) {
+                printf("%d ", b[i][j]);
+                t += b[i][j];
+            }
+            else if (i == k - 1) {
+                printf("%d ", b[i][j]);
+                t += b[i][j];
+            }
+            else if (j == 0) {
+                printf("%d ", b[i][j]);
+                t += b[i][j];
+            }
+            else if (j == l - 1) {
+                t += b[i][j];
+
+                printf("%d ", b[i][j]);
+            }
+           
+        }
+    }
+}
 
 int main()
 {
@@ -83,7 +206,6 @@ int main()
             printf("%d  ", noviNiz[i]);
         }
     }
-    */
     // 5
     int i, j;
     int matrica[2][2] = { {0}, {0} };
@@ -126,6 +248,9 @@ int main()
         }
     }
     printf("Najmanji element na sporednim dijagonalama je: %d\n", najmanjiSporedna);
+    */
+
+    main2();
 
     return 0;
 }
