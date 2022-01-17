@@ -25,127 +25,68 @@ od aritmetičke sredine niza. Rezultat ispišite u glavnom dijelu programa.
 
 
 */
+#include <stdio.h>
 #include <iostream>
+#define N 3
 
-int arSredina(float a, float b) {
-    float arSred;
-    arSred = a + b / 2;
-    printf("Aritmeticka sredina je %f\n", arSred);
-    return arSred;
-}
-
-int najmanji(int niz[], int vel) {
-    int i;
-    int nmj = niz[0];
-    for (int i = 0; i <= vel; i++) {
-        if (niz[i] < nmj)
-            nmj = niz[i];
-    }
-
-    printf("Najmanji je %d\n", nmj);
-    return nmj;
-}
-
-int najveci(int niz[], int vel) {
-    int i;
-    int nmj = niz[0];
-    for (int i = 0; i <= vel; i++) {
-        if (niz[i] > nmj)
-            nmj = niz[i];
-    }
-
-    printf("Najveci je %d\n", nmj);
-    return nmj;
-}
-
-int sumMatrice(int matrica[3][4]) {
-    int i, j, suma;
-    suma = 0;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 4; j++)
-            suma += matrica[i][j];
-    }
-    printf("Suma je %d\n", suma);
-    
-    return suma;
-}
-
-int arSredinaSve(int niz[]) {
-    int i;
-    int arSred;
-    int s = 0;
-    for (i = 0; i < 9; i++) {
-            s += niz[i];
-    }
-    
-    int n = 0;
-    arSred = s / 10;
-    for (i = 0; i < 9; i++) {
-        if (niz[i] > arSred)
-            ++n;
-    }
-
-    return n;
-}
-// a, e, i, o, u
-char brojanjeSamoglasnika(char rijec[]) {
-    int i;
-    int br = 0;
-    for (i = 0; i <= sizeof(&rijec); i++) {
-        if (rijec[i] == 'a' || rijec[i] == 'e' || rijec[i] == 'i' || rijec[i] == 'o' || rijec[i] == 'u')
-            br++;
-    }
-    return br;
-}
-
-int main()
+void swap(int* xp, int* yp)
 {
-    // 2
-    int ml, vl;
-    int niz[10] = { 1,2,3,4,5,6,7,8,9 };
-    ml = najmanji(niz, 9);
-    vl = najveci(niz, 9);
-    arSredina(ml, vl);
-
-    // 3
-    int mat[3][4] = { {1, 2, 3, 4}, {4, 5, 6, 7}, {2, 4, 9, 0}};
-    sumMatrice(mat);
-
-    // 4
-    char rijeci[50];
-    printf("Unesite rijec od max 50 char: \n");
-    //scanf_s(" %c", &rijeci, 50);
-    fgets(rijeci, sizeof(rijeci), stdin);
-
-    printf("%d\n ", brojanjeSamoglasnika(rijeci));
-
-    // 5
-    int niz2[10] = { 1,2,3,4,5,6,7,8,9 };
-    ml = najmanji(niz, 9);
-    vl = najveci(niz, 9);
-    arSredina(ml, vl);
-
-    // 6
-    printf("Unesite 10 cijelih brojeva niza: \n");
-    int niz3[10];
-    for (int i = 0; i < 10; i++) {
-        scanf_s("%d", &niz3[i]);
-    }
-    int n = arSredinaSve(niz3);
-    printf("Vecih je %d\n", n);
-
-    return 0;
+	int temp = *xp;
+	*xp = *yp;
+	*yp = temp;
 }
 
-/*
+void main() {
 
-4. Napišite program koji s tipkovnice učitava riječ (niz od max. 50 velikih slova abecede) te ispisuje
-koliko riječ ima samoglasnika. Definirajte funkciju brojiSamoglasnike() za brojanje samoglasnika u
-riječi.
+	// 1 
 
-*/
+	int niz[N];
+	int i, max, j;
+	int maxMj;
+
+	for (int i = 0; i < N; i++) {
+		scanf_s("%d", &niz[i]);
+	}
+
+	max = niz[0];
+	maxMj = 0;
 
 
+	for (i = 0; i < N - 1; i++) {
+		maxMj = i;
+		for (j = i + 1; j < N; j++)
+			if (niz[j] > niz[maxMj])
+				maxMj = j;
+
+		swap(&niz[maxMj], &niz[i]);
+	}
+
+	printf("\n");
+	for (int i = 0; i < N; i++) {
+		printf("%d\n", niz[i]);
+	}
+
+	
+	// 2
+
+	int matrix[N][N] = { {1, 2, 4}, {2, 4, 5}, {3, 6,8}};
+	int row, col, temp;
+
+	for (row = 0; row < N; row++) {
+		col = row;
+		temp = matrix[row][col];
+		matrix[row][col] = matrix[row][(N - col) - 1];
+		matrix[row][(N - col) - 1] = temp;
+	}
+
+	for (row = 0; row < N; row++) {
+		for (col = 0; col < N; col++) {
+			printf("%d ", matrix[row][col]);
+		}
+		printf("\n");
+	}
+
+}
 // Programm ausführen: STRG+F5 oder Menüeintrag "Debuggen" > "Starten ohne Debuggen starten"
 // Programm debuggen: F5 oder "Debuggen" > Menü "Debuggen starten"
 
