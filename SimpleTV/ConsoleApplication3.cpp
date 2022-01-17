@@ -1,30 +1,7 @@
 // ConsoleApplication3.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
 //
 
-/*
-2. Učitajte niz od 10 cjelobrojinih elemenata. Ispišite aritmetičku sredinu najmanjeg i najvećeg
-elementa niza, ali za izračun aritmetičke sredine definirajte funkciju arSredina.
 
-3. U glavnom programu učitaj matricu dimenzije 3 retka i 4 stupca. Korištenjem funkcije sum_mat()
-izračunajte sumu svih elemenata matrice.
-
-4. Napišite program koji s tipkovnice učitava riječ (niz od max. 50 velikih slova abecede) te ispisuje
-koliko riječ ima samoglasnika. Definirajte funkciju brojiSamoglasnike() za brojanje samoglasnika u
-riječi.
-
-5. Definirajte 3 funkcije:
-Prva neka izračunava aritmetičku sredinu dva cijela broja.
-Druga funkcija neka izdvaja najveći element niza.
-Treća funkcija neka izdvaja najmanji element niza.
-Zatim, u glavnom dijelu programa učitajte niz od 10 cjelobrojnih elemenata, te ispišite aritmetičku
-sredinu najmanjeg i najvećeg elementa niza, izračunavanjem vrijednosti pomoću prethodno
-definiranih funkcija.
-
-6. Neka korisnik unese 10 cjelobrojnih elemenata niza. U funkciji izračunajte koliko je elemenata veće
-od aritmetičke sredine niza. Rezultat ispišite u glavnom dijelu programa.
-
-
-*/
 #include <stdio.h>
 #include <iostream>
 #define N 3
